@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-@include('partial.errors')
+@include('partials.errors')
     <div class="row">
         <div class="col-md-12">
             <form action="{{route('admin.create')}}" method="post">
