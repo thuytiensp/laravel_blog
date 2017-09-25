@@ -18,7 +18,7 @@
         <div class="col-md-12 text-center">
             <h1 class="post-title">The next Steps</h1>
             <p>Understanding the Basics is great, but you need to be able to make the next steps.</p>
-            <p><a href="{{route('blog.index', ['id' => 2])}}">Read more...</a></p>
+            <p><a href="{{route('blog.post', ['id' => 2])}}">Read more...</a></p>
         </div>
     </div>
     <hr>
@@ -26,7 +26,7 @@
         <div class="col-md-12 text-center">
             <h1 class="post-title">Laravel 5.3</h1>
             <p>Though announced as a "minor release", Laravel 5.3 ships with somer very interesting additions and features.</p>
-            <p><a href="{{route('blog.index', ['id' => 3])}}">Read more...</a></p>
+            <p><a href="{{route('blog.post', ['id' => 3])}}">Read more...</a></p>
         </div>
     </div>
 @endsection
