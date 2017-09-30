@@ -1,7 +1,11 @@
 <?php
 namespace App;
-class Post
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
 {
+	protected $fillable = ['title', 'content']; #same as constructor
+
 	public function getPosts($session)
 	{
 		if(!$session->has('posts')){
