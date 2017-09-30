@@ -9,6 +9,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('about', function () {
+    return view('other.about');
+})->name('other.about');
+
 Route::get('/', [
     'uses' => 'PostController@getIndex',
     'as' => 'blog.index'
@@ -18,10 +22,6 @@ Route::get('post/{id}', [
     'uses' => 'PostController@getPost',
     'as' => 'blog.post'
 ]);
-
-Route::get('about', function () {
-    return view('other.about');
-})->name('other.about');
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('', [
