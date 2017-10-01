@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Like;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,6 +28,15 @@ class PostController extends Controller
         #$post = Post::find($id);
         $post = Post::where('id', '=', $id)->first();
         return view('blog.post', ['post' => $post]);
+    }
+    
+    public function getLikePost( $id)
+    {
+        #$post = Post::find($id);
+        $post = Post::where('id', '=', $id)->first();
+        $like = new Like();
+        $post->likes()->save($like);
+        return redirect()->back();
     }
 
     public function getAdminCreate()
@@ -77,6 +87,7 @@ class PostController extends Controller
     public function getAdminDelete($id)
     {
         $post = Post::find($id);
+        $post->likes()->delete();
         $post->delete();
         return redirect()->route('admin.index')->with('info', 'Post deleted!!');
     }
