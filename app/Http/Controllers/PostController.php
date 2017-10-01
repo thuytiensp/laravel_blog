@@ -26,7 +26,7 @@ class PostController extends Controller
     public function getPost( $id)
     {
         #$post = Post::find($id);
-        $post = Post::where('id', '=', $id)->first();
+        $post = Post::where('id', '=', $id)->with('likes')->first();
         return view('blog.post', ['post' => $post]);
     }
     
