@@ -14,6 +14,7 @@
     <body>
     	@include('partials.header')
     	<div class="container">
+            <!-- FILE: app/views/main/index.blade.php -->
     		@yield('content')
     	</div>		
     </body>

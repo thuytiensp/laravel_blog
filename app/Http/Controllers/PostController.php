@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Like;
+use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Session\Store;
 
 use App\Http\Requests;
-use Illuminate\Session\Store;
+
 
 class PostController extends Controller
 {
@@ -41,13 +44,15 @@ class PostController extends Controller
 
     public function getAdminCreate()
     {
-        return view('admin.create');
+        $tags = Tag::all();
+        return view('admin.create', ['tags' => $tags]);
     }
 
     public function getAdminEdit( $id)
     {
        $post = Post::find($id);
-        return view('admin.edit', ['post' => $post, 'postId' => $id]);
+       $tags = Tag::all();
+       return view('admin.edit', ['post' => $post, 'postId' => $id, 'tags' => $tags]);
     }
 
     public function postAdminCreate( Request $request)
@@ -66,6 +71,11 @@ class PostController extends Controller
 
         $post->save();
 
+        $tags = $request->input('tags') === null ? [] : $request->input('tags');
+        //Log::debug($tags);
+
+        $post->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'));
+
         return redirect()->route('admin.index')->with('info', 'Post created, Title is: ' . $request->input('title'));
     }
 
@@ -80,6 +90,10 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
+        //$post->tags()->detach();
+        //$post->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'))
+
+        $post->tags()->sync($request->input('tags') === null ? [] : $request->input('tags'));
 
         return redirect()->route('admin.index')->with('info', 'Post edited, new Title is: ' . $request->input('title'));
     }
@@ -88,6 +102,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->likes()->delete();
+        $post->tags()->detach();
         $post->delete();
         return redirect()->route('admin.index')->with('info', 'Post deleted!!');
     }
