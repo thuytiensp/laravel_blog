@@ -179,3 +179,8 @@ Route::post('admin/update', function () {
 */
 
 Auth::routes();
+
+Route::post('login', [
+    'uses' => "SigninController@signin",
+    'as' => 'auth.signin'
+]);
