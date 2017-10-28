@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Like;
 use App\Tag;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Session\Store;
@@ -69,8 +70,14 @@ class PostController extends Controller
             'content' => $request->input('content')
         ]);
 
-        $post->save();
+        
 
+        $user = Auth::user();
+        if(!$user)
+        {
+            return redirect()->back;
+        }
+        $user->posts()->save($post);
         $tags = $request->input('tags') === null ? [] : $request->input('tags');
         //Log::debug($tags);
 
