@@ -177,3 +177,7 @@ Route::post('admin/update', function () {
 })->name('admin.update');
 
 */
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
