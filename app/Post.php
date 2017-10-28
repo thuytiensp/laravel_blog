@@ -15,5 +15,17 @@ class Post extends Model
 	{
 		return $this->belongsToMany('App\Tag', 'post_tag', 'post_id', 'tag_id')->withTimestamps(); 
 	}
+
+	//Mutator for title
+	public function setTitleAttribute($value)
+	{
+		$this->attributes['title'] = strtolower($value);
+	}
+
+	//Accessor to force title to be in Upper case when retrieve it from db
+	public function getTitleAttribute($value)
+	{
+		return strtoupper($value);
+	}
 }
 ?>
