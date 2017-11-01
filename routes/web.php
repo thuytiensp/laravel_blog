@@ -28,7 +28,7 @@ Route::get('post/{id}/like', [
     'as' => 'blog.post'
 ]);
 
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' =>['auth']], function() {
     Route::get('', [
         'uses' => 'PostController@getAdminIndex',
         'as' => 'admin.index'
